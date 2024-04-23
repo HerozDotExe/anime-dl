@@ -1,31 +1,38 @@
 <script lang="ts">
+	import '/node_modules/@picocss/pico/css/pico.min.css';
 	import '$lib/viewer.css';
-	import { onMount } from 'svelte';
 	import { writable, derived } from 'svelte/store';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
 	let uiChapter = writable(1);
-	let chapter = derived(uiChapter, ($uiChapter) => $uiChapter - 1)
+	let chapter = derived(uiChapter, ($uiChapter) => $uiChapter - 1);
 
 	function previous() {
-		$uiChapter--
-		if(!data.chapters[$chapter]) {
-			$uiChapter++
+		$uiChapter--;
+		if (!data.chapters[$chapter]) {
+			$uiChapter++;
 		}
 	}
 
 	function next() {
-		$uiChapter++
-		if(!data.chapters[$chapter]) {
-			$uiChapter--
+		$uiChapter++;
+		if (!data.chapters[$chapter]) {
+			$uiChapter--;
 		}
 	}
 
 	let images: string[] = [];
 
-	$: images = data.chapters[$chapter].map((image) => `/api/image/${data.id}/${$chapter+1}/${image}`)
+	$: if (images) {
+		if ($chapter > -1) {
+			
+			images = data.chapters[$chapter].map(
+				(image) => `/api/image/${data.id}/${$chapter + 1}/${image}`
+			);
+		}
+	}
 </script>
 
 <div id="viewer">
