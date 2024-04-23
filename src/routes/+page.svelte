@@ -70,7 +70,7 @@
 			progress: string;
 		}[];
 
-		library = (await (await fetch('/api/library')).json())
+		library = await (await fetch('/api/library')).json();
 	}
 
 	async function cancelTask(id: number) {
@@ -79,8 +79,8 @@
 	}
 
 	async function deleteManga(id: string) {
-		console.log("delete", id)
-		await fetch(`/api/delete/${id}`)
+		console.log('delete', id);
+		await fetch(`/api/delete/${id}`);
 	}
 
 	onMount(() => {
@@ -180,11 +180,11 @@
 			{#each $pending as manga, index}
 				<article>
 					<header>{manga.id} | {manga.progress} chapters downloaded</header>
-						<button
-							on:click={() => {
-								cancelTask(index);
-							}}>Cancel</button
-						>
+					<button
+						on:click={() => {
+							cancelTask(index);
+						}}>Cancel</button
+					>
 				</article>
 			{/each}
 		</div>
@@ -195,16 +195,16 @@
 			{#each Object.keys(library) as manga}
 				<article>
 					<header>{manga}</header>
-						<button
-							on:click={() => {
-								window.location.href = `/viewer/${manga}`
-							}}>Browse</button
-						>
-						<button
-							on:click={() => {
-								deleteManga(manga);
-							}}>Delete</button
-						>
+					<button
+						on:click={() => {
+							window.location.href = `/viewer/${manga}`;
+						}}>Browse</button
+					>
+					<button
+						on:click={() => {
+							deleteManga(manga);
+						}}>Delete</button
+					>
 				</article>
 			{/each}
 		</div>
