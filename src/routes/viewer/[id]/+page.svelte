@@ -7,11 +7,11 @@
 
 	export let data: PageData;
 
-	const localStorageIdentifier = `lastChapter.${data.id}`
+	const localStorageIdentifier = `lastChapter.${data.id}`;
 
 	let uiChapter = writable(1);
 	let chapter = derived(uiChapter, ($uiChapter) => $uiChapter - 1);
-	let isInBrowser = false
+	let isReady = false;
 
 	function previous() {
 		$uiChapter--;
@@ -27,13 +27,11 @@
 		}
 	}
 
-	let images: string[] = [];
-
-	$: if (images) {
-		if ($chapter > -1) {
-			if (isInBrowser) {
+	function update() {
+		if ($chapter > -1 && isReady) {
+			if (isReady) {
 				window.scrollTo(0, 0);
-				localStorage.setItem(localStorageIdentifier, $uiChapter.toString())
+				localStorage.setItem(localStorageIdentifier, $uiChapter.toString());
 			}
 			images = data.chapters[$chapter].map(
 				(image) => `/api/image/${data.id}/${$chapter + 1}/${image}`
@@ -41,14 +39,19 @@
 		}
 	}
 
+	let images: string[] = [];
+
+	chapter.subscribe(update);
+
 	onMount(() => {
-		isInBrowser = true
-		if(!localStorage.getItem(localStorageIdentifier)) {
-			localStorage.setItem(localStorageIdentifier, "1")
+		if (!localStorage.getItem(localStorageIdentifier)) {
+			localStorage.setItem(localStorageIdentifier, '1');
 		} else {
-			$uiChapter = parseInt(localStorage.getItem(localStorageIdentifier)!)
+			$uiChapter = parseInt(localStorage.getItem(localStorageIdentifier)!);
 		}
-	})
+		isReady = true;
+		update()
+	});
 </script>
 
 <div id="viewer">
