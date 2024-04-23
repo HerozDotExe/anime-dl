@@ -1,0 +1,48 @@
+html,
+body {
+	width: 100%;
+	margin: 0;
+}
+
+#controls button {
+	position: absolute;
+	background-color: transparent;
+	border: 0;
+	width: 50%;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+}
+
+#previous {
+	left: 0;
+}
+
+#next {
+	right: 0;
+}
+
+#images {
+	position: absolute;
+	top: 22px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 40%;
+	height: fit-content;
+	z-index: 0;
+}
+
+img {
+	width: 100%;
+}
+
+#chapterSelector {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%);
+	width: 40%;
+	z-index: 2000;
+	padding: 0;
+	border: 0;
+}
