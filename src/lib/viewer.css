@@ -5,7 +5,7 @@ body {
 }
 
 #controls button {
-	position: absolute;
+	position: fixed;
 	background-color: transparent;
 	border: 0;
 	width: 50%;
@@ -24,7 +24,7 @@ body {
 
 #images {
 	position: absolute;
-	top: 22px;
+	top: 24px;
 	left: 50%;
 	transform: translate(-50%);
 	width: 40%;
@@ -37,12 +37,14 @@ img {
 }
 
 #chapterSelector {
-	position: absolute;
+	position: fixed;
 	top: 0;
+	z-index: 2000;
+	border: 0;
+	border-radius: 0;
+	width: calc(40% - 4px);
 	left: 50%;
 	transform: translate(-50%);
-	width: 40%;
-	z-index: 2000;
-	padding: 0;
-	border: 0;
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
