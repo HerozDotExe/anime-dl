@@ -3,11 +3,13 @@
 	import '$lib/viewer.css';
 	import { writable, derived } from 'svelte/store';
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 
 	let uiChapter = writable(1);
 	let chapter = derived(uiChapter, ($uiChapter) => $uiChapter - 1);
+	let scrollingEnabled = false
 
 	function previous() {
 		$uiChapter--;
@@ -27,12 +29,18 @@
 
 	$: if (images) {
 		if ($chapter > -1) {
-			
+			if (scrollingEnabled) {
+				window.scrollTo(0, 0);
+			}
 			images = data.chapters[$chapter].map(
 				(image) => `/api/image/${data.id}/${$chapter + 1}/${image}`
 			);
 		}
 	}
+
+	onMount(() => {
+		scrollingEnabled = true
+	})
 </script>
 
 <div id="viewer">
