@@ -89,10 +89,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Anime DL</title>
-</svelte:head>
-
 <header class="container">
 	<nav>
 		<ul>
