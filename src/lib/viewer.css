@@ -12,6 +12,7 @@ body {
 	height: 100%;
 	top: 0;
 	z-index: 1000;
+	box-shadow:none;
 }
 
 #previous {
@@ -24,7 +25,7 @@ body {
 
 #images {
 	position: absolute;
-	top: 24px;
+	top: 40px;
 	left: 50%;
 	transform: translate(-50%);
 	width: 40%;
@@ -42,9 +43,10 @@ img {
 	z-index: 2000;
 	border: 0;
 	border-radius: 0;
-	width: calc(40% - 4px);
+	width: calc(40%);
 	left: 50%;
 	transform: translate(-50%);
 	padding-top: 4px;
 	padding-bottom: 4px;
+	height: 40px !important;
 }
