@@ -7,9 +7,11 @@
 
 	export let data: PageData;
 
+	const localStorageIdentifier = `lastChapter.${data.id}`
+
 	let uiChapter = writable(1);
 	let chapter = derived(uiChapter, ($uiChapter) => $uiChapter - 1);
-	let scrollingEnabled = false
+	let isInBrowser = false
 
 	function previous() {
 		$uiChapter--;
@@ -29,8 +31,9 @@
 
 	$: if (images) {
 		if ($chapter > -1) {
-			if (scrollingEnabled) {
+			if (isInBrowser) {
 				window.scrollTo(0, 0);
+				localStorage.setItem(localStorageIdentifier, $uiChapter.toString())
 			}
 			images = data.chapters[$chapter].map(
 				(image) => `/api/image/${data.id}/${$chapter + 1}/${image}`
@@ -39,7 +42,12 @@
 	}
 
 	onMount(() => {
-		scrollingEnabled = true
+		isInBrowser = true
+		if(!localStorage.getItem(localStorageIdentifier)) {
+			localStorage.setItem(localStorageIdentifier, "1")
+		} else {
+			$uiChapter = parseInt(localStorage.getItem(localStorageIdentifier)!)
+		}
 	})
 </script>
 
