@@ -58,21 +58,22 @@
 	});
 </script>
 
-<div id="viewer">
-	<div id="controls">
-		<button id="previous" on:click={() => previous()}></button>
-		<button id="next" on:click={() => next()}></button>
-		<input
-			id="chapterSelector"
-			type="number"
-			min="1"
-			max={data.chapters.length}
-			bind:value={$uiChapter}
-		/>
-	</div>
+<nav id="controls">
+	<button id="previous" on:click={() => previous()}></button>
+	<button id="next" on:click={() => next()}></button>
+	<input
+		id="chapterSelector"
+		type="number"
+		min="1"
+		max={data.chapters.length}
+		bind:value={$uiChapter}
+	/>
+	<button id="home" on:click={() => (window.location.href = '/')}>Home</button>
+</nav>
+<main id="viewer">
 	<div id="images">
 		{#each images as image}
 			<img src={image} alt="" />
 		{/each}
 	</div>
-</div>
+</main>
