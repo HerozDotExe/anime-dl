@@ -28,7 +28,7 @@
 	}
 
 	function update() {
-		if ($chapter > -1 && isReady) {
+		if ($chapter > -1 && isReady && $chapter < data.chapters.length) {
 			if (isReady) {
 				window.scrollTo(0, 0);
 				localStorage.setItem(localStorageIdentifier, $uiChapter.toString());
@@ -36,6 +36,10 @@
 			images = data.chapters[$chapter].map(
 				(image) => `/api/image/${data.id}/${$chapter + 1}/${image}`
 			);
+		}
+
+		if ($chapter > -1 && isReady && $chapter > data.chapters.length) {
+			alert("This chapter wasn't downloaded!");
 		}
 	}
 
@@ -50,7 +54,7 @@
 			$uiChapter = parseInt(localStorage.getItem(localStorageIdentifier)!);
 		}
 		isReady = true;
-		update()
+		update();
 	});
 </script>
 
