@@ -49,11 +49,20 @@ img {
 }
 
 #chapterSelector {
-	width: 80%;
+	width: 90%;
 	left: 0;
 }
 
 #home {
-	width: 20%;
+	width: 10%;
 	right: 0;
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+	#chapterSelector {
+		width: 70% !important;
+	}
+	#home {
+		width: 30% !important;
+	}
 }
